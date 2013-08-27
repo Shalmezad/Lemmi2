@@ -13,7 +13,7 @@ package
 		private var levelNum:int;
 		private var exits:FlxGroup;
 		
-		public function GameState(levelNum:int = 2) {
+		public function GameState(levelNum:int = 1) {
 			this.levelNum = levelNum;
 		}
 		
@@ -21,15 +21,39 @@ package
 		{
 			FlxG.bgColor = 0xff00cccc;
 			loadMap(levelNum);
+			loadExits();
+			loadPlayer();
+			cameraSetup();
+			if (map.mapFeatures.hat.length() > 0)
+			{
+				hat = new Hat();
+				hat.x = map.mapFeatures.hat[0].@tileX * LevelMap.TILE_WIDTH;
+				hat.y = map.mapFeatures.hat[0].@tileY * LevelMap.TILE_HEIGHT;
+				add(hat);
+			}
+		}
+		
+		private function loadExits():void
+		{
+			exits = new FlxGroup();
+			for each (var exitXML:XML in map.mapFeatures.exit)
+			{
+				var exit:FlxSprite = new FlxSprite();
+				exit.makeGraphic(LevelMap.TILE_WIDTH, LevelMap.TILE_HEIGHT, 0xff00ffff);
+				exit.x = exitXML.@tileX * LevelMap.TILE_WIDTH;
+				exit.y = exitXML.@tileY * LevelMap.TILE_HEIGHT;
+				exits.add(exit);
+				trace("Exit: " + exit.x + "," + exit.y);
+			}
+			add(exits);
+		}
+		
+		private function loadPlayer():void
+		{
 			player = new Player();
 			player.x = map.mapFeatures.player[0].@startTileX * LevelMap.TILE_WIDTH;
 			player.y = map.mapFeatures.player[0].@startTileY * LevelMap.TILE_HEIGHT;
 			add(player);
-			cameraSetup();
-			hat = new Hat();
-			hat.x = 100;
-			hat.y = 100;
-			add(hat);
 		}
 		
 		private function loadMap(levelNum:int):void
@@ -51,7 +75,14 @@ package
 		{
 			super.update();
 			FlxG.collide(map, player);
-			FlxG.collide(hat, player, getHat);
+			if(hat != null)
+				FlxG.overlap(hat, player, getHat);
+			FlxG.overlap(exits, player, exitMap);
+		}
+		
+		private function exitMap(a:FlxObject, b:FlxObject):void
+		{
+			FlxG.switchState(new GameState(levelNum+1));
 		}
 		
 		private function getHat(a:FlxObject, b:FlxObject):void

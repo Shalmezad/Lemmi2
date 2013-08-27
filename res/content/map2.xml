@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 	<player startTileX="2" startTileY="10"/>
-	<end tileX="10" tileY="11"/>
+	<exit tileX="17" tileY="2"/>
 </data>
