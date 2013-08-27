@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<hat tileX="10" tileY="10"/>
+	<player startTileX="2" startTileY="11"/>
+	<end tileX="10" tileY="11"/>
+</data>

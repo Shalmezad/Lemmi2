@@ -11,6 +11,7 @@ package
 		private var map:LevelMap;
 		private var hat:Hat;
 		private var levelNum:int;
+		private var exits:FlxGroup;
 		
 		public function GameState(levelNum:int = 2) {
 			this.levelNum = levelNum;
@@ -21,8 +22,8 @@ package
 			FlxG.bgColor = 0xff00cccc;
 			loadMap(levelNum);
 			player = new Player();
-			player.x = 50;
-			player.y = map.height - 30;
+			player.x = map.mapFeatures.player[0].@startTileX * LevelMap.TILE_WIDTH;
+			player.y = map.mapFeatures.player[0].@startTileY * LevelMap.TILE_HEIGHT;
 			add(player);
 			cameraSetup();
 			hat = new Hat();
