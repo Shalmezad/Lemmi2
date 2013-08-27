@@ -35,6 +35,10 @@ package
 			else {
 				play("stand");
 			}
+			
+			if ((FlxG.keys.SPACE || FlxG.keys.UP) && isTouching(FLOOR)) {
+				velocity.y = -125;
+			}
 		}
 	}
 

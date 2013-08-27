@@ -8,7 +8,7 @@ package
 	 */
 	public class Main extends FlxGame 
 	{
-		private const SCALE:int = 4;
+		private const SCALE:int = 5;
 		public function Main():void 
 		{
 			super(640/SCALE, 480/SCALE, GameState, SCALE);
