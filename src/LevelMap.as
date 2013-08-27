@@ -3,7 +3,7 @@ package
 	import org.flixel.FlxTilemap;
 	/**
 	 * ...
-	 * @author RichardWardin
+	 * @author Shalmezad
 	 */
 	public class LevelMap extends FlxTilemap
 	{

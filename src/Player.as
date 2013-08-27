@@ -3,20 +3,33 @@ package
 	import org.flixel.*;
 	/**
 	 * ...
-	 * @author RichardWardin
+	 * @author Shalmezad
 	 */
 	public class Player extends FlxSprite
 	{
-		[Embed(source = "../res/player.png")] public var G_PLAYER:Class;
+		[Embed(source = "../res/player/player.png")] public var G_PLAYER:Class;
+		[Embed(source = "../res/player/player-nohat.png")] public var G_PLAYER_NOHAT:Class;
+		
+		public static var hasHat:Boolean = false;
+		
 		public function Player() 
 		{
-			loadGraphic(G_PLAYER, true, true, 7, 10);
+			if(hasHat)
+				loadGraphic(G_PLAYER, true, true, 7, 10);
+			else
+				loadGraphic(G_PLAYER_NOHAT, true, true, 7, 10);
 			addAnimation("stand", [0], 0);
 			addAnimation("walk", [1,2,1,3], 10);
 			play("stand");
-			maxVelocity.x = 40;
+			maxVelocity.x = 50;
 			acceleration.y = 200;
 			drag.x = maxVelocity.x * 4;
+		}
+		
+		public function getHat():void
+		{
+			hasHat = true;
+			loadGraphic(G_PLAYER, true, true, 7, 10);
 		}
 		
 		override public function update():void
@@ -36,8 +49,10 @@ package
 				play("stand");
 			}
 			
-			if ((FlxG.keys.SPACE || FlxG.keys.UP) && isTouching(FLOOR)) {
-				velocity.y = -125;
+			if(hasHat){
+				if ((FlxG.keys.SPACE || FlxG.keys.UP) && isTouching(FLOOR)) {
+					velocity.y = -125;
+				}
 			}
 		}
 	}

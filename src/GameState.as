@@ -9,6 +9,7 @@ package
 	{
 		private var player:Player;
 		private var map:LevelMap;
+		private var hat:Hat;
 		override public function create():void
 		{
 			FlxG.bgColor = 0xff00cccc;
@@ -17,6 +18,10 @@ package
 			player = new Player();
 			add(player);
 			cameraSetup();
+			hat = new Hat();
+			hat.x = 100;
+			hat.y = 100;
+			add(hat);
 		}
 		
 		private function cameraSetup():void
@@ -32,6 +37,12 @@ package
 		{
 			super.update();
 			FlxG.collide(map, player);
+			FlxG.collide(hat, player, getHat);
+		}
+		
+		private function getHat(a:FlxObject, b:FlxObject) {
+			hat.kill();
+			player.getHat();
 		}
 	}
 
