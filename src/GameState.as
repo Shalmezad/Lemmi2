@@ -10,18 +10,31 @@ package
 		private var player:Player;
 		private var map:LevelMap;
 		private var hat:Hat;
+		private var levelNum:int;
+		
+		public function GameState(levelNum:int = 2) {
+			this.levelNum = levelNum;
+		}
+		
 		override public function create():void
 		{
 			FlxG.bgColor = 0xff00cccc;
-			map = new LevelMap();
-			add(map);
+			loadMap(levelNum);
 			player = new Player();
+			player.x = 50;
+			player.y = map.height - 30;
 			add(player);
 			cameraSetup();
 			hat = new Hat();
 			hat.x = 100;
 			hat.y = 100;
 			add(hat);
+		}
+		
+		private function loadMap(levelNum:int):void
+		{
+			map = new LevelMap(levelNum);
+			add(map);
 		}
 		
 		private function cameraSetup():void
@@ -40,7 +53,8 @@ package
 			FlxG.collide(hat, player, getHat);
 		}
 		
-		private function getHat(a:FlxObject, b:FlxObject) {
+		private function getHat(a:FlxObject, b:FlxObject):void
+		{
 			hat.kill();
 			player.getHat();
 		}
