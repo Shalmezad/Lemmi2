@@ -9,13 +9,13 @@ package
 	{
 		private var player:Player;
 		private var map:LevelMap;
-		public function GameState() 
+		override public function create():void
 		{
-			add(new FlxText(20, 20, 200, "Testing"));
-			player = new Player();
-			add(player);
+			FlxG.bgColor = 0xff00cccc;
 			map = new LevelMap();
 			add(map);
+			player = new Player();
+			add(player);
 		}
 		override public function update():void
 		{
