@@ -7,6 +7,8 @@ package
 	 */
 	public class GameState extends FlxState
 	{
+		[Embed(source = "../res/coin.png")] public var G_COIN:Class;
+		
 		private var player:Player;
 		private var map:LevelMap;
 		private var hat:Hat;
@@ -39,7 +41,7 @@ package
 			for each (var exitXML:XML in map.mapFeatures.exit)
 			{
 				var exit:FlxSprite = new FlxSprite();
-				exit.makeGraphic(LevelMap.TILE_WIDTH, LevelMap.TILE_HEIGHT, 0xff00ffff);
+				exit.loadGraphic(G_COIN);
 				exit.x = exitXML.@tileX * LevelMap.TILE_WIDTH;
 				exit.y = exitXML.@tileY * LevelMap.TILE_HEIGHT;
 				exits.add(exit);
