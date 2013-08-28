@@ -18,11 +18,14 @@ package
 										G_HAT_BOXER, G_HAT_CONSTRUCT,
 										G_HAT_DEMO];
 										
+		public var hatType:int;
+										
 		public function Hat(hatXML:XML) 
 		{
 			x = hatXML.@tileX * LevelMap.TILE_WIDTH;
 			y = hatXML.@tileY * LevelMap.TILE_HEIGHT;
 			loadGraphic(GA_HAT[hatXML.@type]);
+			hatType = hatXML.@type;
 		}
 		override public function update():void
 		{

@@ -94,8 +94,11 @@ package
 		
 		private function getHat(a:FlxObject, b:FlxObject):void
 		{
-			hat.kill();
-			player.getHat();
+			var h:Hat;
+			h = (a is Hat) ? a as Hat: b as Hat;
+			if (Player.currentState != h.hatType) {
+				player.getHat(h.hatType);
+			}
 		}
 	}
 

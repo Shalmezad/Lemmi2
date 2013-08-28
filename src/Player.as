@@ -7,14 +7,14 @@ package
 	 */
 	public class Player extends FlxSprite
 	{
-		[Embed(source = "../res/player/player.png")] public var G_PLAYER:Class;
-		[Embed(source = "../res/player/player-nohat.png")] public var G_PLAYER_NOHAT:Class;
-		[Embed(source = "../res/player/player-boxer.png")] public var G_PLAYER_BOXER:Class;
-		[Embed(source = "../res/player/player-construct.png")] public var G_PLAYER_CONSTRUCT:Class;
-		[Embed(source = "../res/player/player-demo.png")] public var G_PLAYER_DEMO:Class;
+		[Embed(source = "../res/player/player.png")] public const G_PLAYER:Class;
+		[Embed(source = "../res/player/player-nohat.png")] public const G_PLAYER_NOHAT:Class;
+		[Embed(source = "../res/player/player-boxer.png")] public const G_PLAYER_BOXER:Class;
+		[Embed(source = "../res/player/player-construct.png")] public const G_PLAYER_CONSTRUCT:Class;
+		[Embed(source = "../res/player/player-demo.png")] public const G_PLAYER_DEMO:Class;
 		
 		//NOTE: Order of graphics *MUST* be same order as states.
-		private var GA_PLAYER:Array = [G_PLAYER_NOHAT, GA_PLAYER,
+		private var GA_PLAYER:Array = [G_PLAYER_NOHAT, G_PLAYER,
 										G_PLAYER_BOXER, G_PLAYER_CONSTRUCT,
 										G_PLAYER_DEMO];
 		
@@ -24,16 +24,12 @@ package
 		public static const STATE_CONSTRUCT:int = 3;
 		public static const STATE_DEMO:int = 4;
 		
-		public static var hasHat:Boolean = false;
+		public static var currentState:int = STATE_NOHAT;
 		
-		
-		
-		public function Player() 
+		public function Player(s:int = STATE_NOHAT) 
 		{
-			if(hasHat)
-				loadGraphic(G_PLAYER, true, true, 7, 10);
-			else
-				loadGraphic(G_PLAYER_NOHAT, true, true, 7, 10);
+			currentState = s;
+			loadGraphic(GA_PLAYER[currentState], true, true, 7, 10);
 			addAnimation("stand", [0], 0);
 			addAnimation("walk", [1,2,1,3], 10);
 			play("stand");
@@ -42,11 +38,12 @@ package
 			drag.x = maxVelocity.x * 4;
 		}
 		
-		public function getHat():void
+		public function getHat(hatType:int):void
 		{
-			hasHat = true;
-			loadGraphic(G_PLAYER, true, true, 7, 10);
+			currentState = hatType;
+			loadGraphic(GA_PLAYER[hatType] as Class, true, true, 7, 10);
 		}
+		
 		
 		override public function update():void
 		{
@@ -65,7 +62,7 @@ package
 				play("stand");
 			}
 			
-			if(hasHat){
+			if(currentState != STATE_NOHAT){
 				if (Key.JUMP && isTouching(FLOOR)) {
 					velocity.y = -125;
 				}
