@@ -9,8 +9,24 @@ package
 	{
 		[Embed(source = "../res/player/player.png")] public var G_PLAYER:Class;
 		[Embed(source = "../res/player/player-nohat.png")] public var G_PLAYER_NOHAT:Class;
+		[Embed(source = "../res/player/player-boxer.png")] public var G_PLAYER_BOXER:Class;
+		[Embed(source = "../res/player/player-construct.png")] public var G_PLAYER_CONSTRUCT:Class;
+		[Embed(source = "../res/player/player-demo.png")] public var G_PLAYER_DEMO:Class;
+		
+		//NOTE: Order of graphics *MUST* be same order as states.
+		private var GA_PLAYER:Array = [G_PLAYER_NOHAT, GA_PLAYER,
+										G_PLAYER_BOXER, G_PLAYER_CONSTRUCT,
+										G_PLAYER_DEMO];
+		
+		public static const STATE_NOHAT:int = 0;
+		public static const STATE_NORMAL:int = 1;
+		public static const STATE_BOXER:int = 2;
+		public static const STATE_CONSTRUCT:int = 3;
+		public static const STATE_DEMO:int = 4;
 		
 		public static var hasHat:Boolean = false;
+		
+		
 		
 		public function Player() 
 		{

@@ -26,11 +26,16 @@ package
 			loadExits();
 			loadPlayer();
 			cameraSetup();
-			if (map.mapFeatures.hat.length() > 0)
+			/*if (map.mapFeatures.hat.length() > 0)
 			{
 				hat = new Hat();
 				hat.x = map.mapFeatures.hat[0].@tileX * LevelMap.TILE_WIDTH;
 				hat.y = map.mapFeatures.hat[0].@tileY * LevelMap.TILE_HEIGHT;
+				add(hat);
+			}*/
+			for each (var hatXML:XML in map.mapFeatures.hat)
+			{
+				hat = new Hat(hatXML);
 				add(hat);
 			}
 		}
