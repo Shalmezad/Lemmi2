@@ -27,7 +27,7 @@ package
 		
 		public function LevelMap(levelNum:int) 
 		{
-			if(levelNum == 1){
+			if (levelNum == 1) {
 				loadMap(new MAP_1(), G_TILES, TILE_WIDTH, TILE_HEIGHT, OFF, 0, 1, COLLIDE_TILE);
 				mapFeatures= new XML(new MAP_XML_1);
 			}

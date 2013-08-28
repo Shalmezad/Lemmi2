@@ -11,7 +11,7 @@ package
 		private const SCALE:int = 5;
 		public function Main():void 
 		{
-			super(640/SCALE, 480/SCALE, GameState, SCALE);
+			super(640 / SCALE, 480 / SCALE, GameState, SCALE);
 		}
 	}
 	
