@@ -11,7 +11,7 @@ package
 		
 		private var player:Player;
 		private var map:LevelMap;
-		private var hat:Hat;
+		private var hats:FlxGroup;
 		private var levelNum:int;
 		private var exits:FlxGroup;
 		
@@ -26,18 +26,14 @@ package
 			loadExits();
 			loadPlayer();
 			cameraSetup();
-			/*if (map.mapFeatures.hat.length() > 0)
-			{
-				hat = new Hat();
-				hat.x = map.mapFeatures.hat[0].@tileX * LevelMap.TILE_WIDTH;
-				hat.y = map.mapFeatures.hat[0].@tileY * LevelMap.TILE_HEIGHT;
-				add(hat);
-			}*/
+			
+			hats = new FlxGroup;
 			for each (var hatXML:XML in map.mapFeatures.hat)
 			{
-				hat = new Hat(hatXML);
-				add(hat);
+				var hat:Hat = new Hat(hatXML);
+				hats.add(hat);
 			}
+			add(hats);
 		}
 		
 		private function loadExits():void
@@ -57,9 +53,9 @@ package
 		
 		private function loadPlayer():void
 		{
-			player = new Player();
-			player.x = map.mapFeatures.player[0].@startTileX * LevelMap.TILE_WIDTH;
-			player.y = map.mapFeatures.player[0].@startTileY * LevelMap.TILE_HEIGHT;
+			player = new Player(map.mapFeatures.player[0]);
+			//player.x = map.mapFeatures.player[0].@startTileX * LevelMap.TILE_WIDTH;
+			//player.y = map.mapFeatures.player[0].@startTileY * LevelMap.TILE_HEIGHT;
 			add(player);
 		}
 		
@@ -82,8 +78,7 @@ package
 		{
 			super.update();
 			FlxG.collide(map, player);
-			if(hat != null)
-				FlxG.overlap(hat, player, getHat);
+			FlxG.overlap(hats, player, getHat);
 			FlxG.overlap(exits, player, exitMap);
 		}
 		

@@ -26,9 +26,11 @@ package
 		
 		public static var currentState:int = STATE_NOHAT;
 		
-		public function Player(s:int = STATE_NOHAT) 
+		public function Player(playerXML:XML) 
 		{
-			currentState = s;
+			x = playerXML.@startTileX * LevelMap.TILE_WIDTH;
+			y = playerXML.@startTileY * LevelMap.TILE_HEIGHT;
+			currentState = playerXML.@startType;
 			loadGraphic(GA_PLAYER[currentState], true, true, 7, 10);
 			addAnimation("stand", [0], 0);
 			addAnimation("walk", [1,2,1,3], 10);
@@ -41,7 +43,9 @@ package
 		public function getHat(hatType:int):void
 		{
 			currentState = hatType;
+			var tempFacing:uint = facing;
 			loadGraphic(GA_PLAYER[hatType] as Class, true, true, 7, 10);
+			facing = tempFacing;
 		}
 		
 		
@@ -50,14 +54,20 @@ package
 			acceleration.x = 0;
 			if(Key.LEFT){
 				acceleration.x = -maxVelocity.x * 4;
-				facing = LEFT;
 				play("walk");
 			}
 			else if(Key.RIGHT){
 				acceleration.x = maxVelocity.x * 4;
-				facing = RIGHT;
 				play("walk");
 			}
+			
+			if (velocity.x > 0) {
+				facing = RIGHT;
+			}
+			else if (velocity.x < 0) {
+				facing = LEFT;
+			}
+			
 			else {
 				play("stand");
 			}

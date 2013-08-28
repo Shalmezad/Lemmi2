@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<player startTileX="2" startTileY="10"/>
+	<player startTileX="2" startTileY="10" startType="1" />
 	<exit tileX="17" tileY="2"/>
+	
+	
+	<hat tileX="5" tileY="6" type="2" />
+	<hat tileX="8" tileY="6" type="3" />
+	<hat tileX="11" tileY="6" type="4" />
+	<hat tileX="10" tileY="2" type="1" />
 </data>

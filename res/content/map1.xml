@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 	<hat tileX="10" tileY="10" type="1" />
-	<player startTileX="2" startTileY="10"/>
+	<player startTileX="2" startTileY="10" startType="0" />
 	<exit tileX="14" tileY="10"/>
 </data>
